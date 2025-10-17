@@ -5,7 +5,9 @@ import 'course_detail_view.dart';
 
 class HomeView extends StatefulWidget {
   final Student student;
-  const HomeView({super.key, required this.student});
+  final bool? isDarkMode;
+  final VoidCallback? onToggleTheme;
+  const HomeView({super.key, required this.student, this.isDarkMode, this.onToggleTheme});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -33,6 +35,14 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text('Mi Control Académico'),
         centerTitle: true,
+        actions: [
+          if (widget.onToggleTheme != null)
+            IconButton(
+              tooltip: widget.isDarkMode == true ? 'Modo claro' : 'Modo oscuro',
+              onPressed: widget.onToggleTheme,
+              icon: Icon(widget.isDarkMode == true ? Icons.wb_sunny_outlined : Icons.nightlight_round),
+            ),
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -75,7 +85,8 @@ class _HeaderCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 36,
-              backgroundImage: null, 
+              backgroundColor: theme.colorScheme.primaryContainer,
+              foregroundColor: theme.colorScheme.onPrimaryContainer,
               child: Text(
                 _initials(name),
                 style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w800),
@@ -127,6 +138,7 @@ class _CourseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final avg = course.average;
+    final courseColor = course.color ?? theme.colorScheme.primary;
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -137,12 +149,29 @@ class _CourseTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         leading: CircleAvatar(
           radius: 22,
-          child: Icon(Icons.menu_book_outlined, color: theme.colorScheme.onPrimaryContainer),
+          backgroundColor: courseColor.withOpacity(0.12),
+          foregroundColor: courseColor,
+          child: Icon(Icons.menu_book_outlined, color: courseColor),
         ),
         title: Text(course.name, style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
-        subtitle: Text(
-          avg == null ? 'Sin promedio' : 'Promedio: ${avg.toStringAsFixed(2)}  ·  ${course.category}',
-          style: theme.textTheme.bodySmall,
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              avg == null ? 'Sin promedio' : 'Promedio: ${avg.toStringAsFixed(2)}  ·  ${course.category}',
+              style: theme.textTheme.bodySmall,
+            ),
+            const SizedBox(height: 6),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: course.normalizedProgress,
+                minHeight: 8,
+                backgroundColor: courseColor.withOpacity(0.12),
+                valueColor: AlwaysStoppedAnimation<Color>(courseColor),
+              ),
+            ),
+          ],
         ),
         trailing: Icon(Icons.chevron_right_rounded, color: theme.colorScheme.outline),
       ),
