@@ -41,11 +41,11 @@ class AcademicApp extends StatelessWidget {
       ),
       home: HomeView(
         student: Student(
-          name: 'Ludwin Navarro',
+          name: 'Joseph Carabantes',
           courses: [
             Course(id: '1', name: 'Programación Móvil II'),
-            Course(id: '2', name: 'Circuitos Lógicos'),
-            Course(id: '3', name: 'Inteligencia Artificial'),
+            Course(id: '2', name: 'Desarrollo de Portales Web II'),
+            Course(id: '3', name: 'Seminario de Hardware'),
           ],
         ),
       ),
