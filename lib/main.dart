@@ -24,7 +24,6 @@ class AcademicApp extends StatelessWidget {
         colorSchemeSeed: seed,
         textTheme: GoogleFonts.poppinsTextTheme(),
 
-        
         cardTheme: const CardThemeData(
           elevation: 1,
           shadowColor: Colors.black12,
@@ -41,11 +40,18 @@ class AcademicApp extends StatelessWidget {
       ),
       home: HomeView(
         student: Student(
-          name: 'Ludwin Navarro',
+          name: 'Edward J. Pineda',
           courses: [
             Course(id: '1', name: 'Programación Móvil II'),
-            Course(id: '2', name: 'Circuitos Lógicos'),
-            Course(id: '3', name: 'Inteligencia Artificial'),
+            Course(id: '2', name: 'Seminario de Hardware'),
+            Course(
+              id: '3',
+              name: 'Gestión Y Estándares De Tecnología De Información',
+            ),
+            Course(id: '4', name: 'Portales Web II'),
+            Course(id: '5', name: 'Lenguaje de Señas I'),
+            Course(id: '6', name: 'Ingles V'),
+            Course(id: '7', name: 'Trabajo Educativo Social'),
           ],
         ),
       ),
