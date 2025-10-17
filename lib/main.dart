@@ -21,7 +21,7 @@ class AcademicApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: seed,
+        colorSchemeSeed: const Color.fromARGB(255, 132, 113, 186),
         textTheme: GoogleFonts.poppinsTextTheme(),
 
         
@@ -35,7 +35,7 @@ class AcademicApp extends StatelessWidget {
 
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          fillColor: Color(0xFFF7F7FA),
+          fillColor: Color.fromARGB(255, 102, 102, 106),
         ),
         appBarTheme: const AppBarTheme(centerTitle: true),
       ),
