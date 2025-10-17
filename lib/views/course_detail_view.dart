@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import '../models/course.dart';
 
@@ -16,6 +18,15 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   late final TextEditingController _p2Ctrl;
   late final TextEditingController _p3Ctrl;
 
+
+  void _clearFields() {
+    setState(() {
+      _p1Ctrl.clear();
+      _p2Ctrl.clear();
+      _p3Ctrl.clear();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -24,7 +35,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
     _p3Ctrl = TextEditingController(text: _fmt(widget.course.p3));
   }
 
-  String _fmt(double? v) => v == null ? '' : v.toStringAsFixed(v % 1 == 0 ? 0 : 2);
+  String _fmt(double? v) =>
+      v == null ? '' : v.toStringAsFixed(v % 1 == 0 ? 0 : 2);
 
   @override
   void dispose() {
@@ -57,10 +69,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
     final cat = widget.course.category;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.course.name),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text(widget.course.name), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
@@ -69,18 +78,32 @@ class _CourseDetailViewState extends State<CourseDetailView> {
             const SizedBox(height: 16),
             Card(
               elevation: 1,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
-                      _GradeField(label: 'Parcial 1', controller: _p1Ctrl, validator: _validate),
+                      _GradeField(
+                        label: 'Parcial 1',
+                        controller: _p1Ctrl,
+                        validator: _validate,
+                      ),
                       const SizedBox(height: 12),
-                      _GradeField(label: 'Parcial 2', controller: _p2Ctrl, validator: _validate),
+                      _GradeField(
+                        label: 'Parcial 2',
+                        controller: _p2Ctrl,
+                        validator: _validate,
+                      ),
                       const SizedBox(height: 12),
-                      _GradeField(label: 'Parcial 3', controller: _p3Ctrl, validator: _validate),
+                      _GradeField(
+                        label: 'Parcial 3',
+                        controller: _p3Ctrl,
+                        validator: _validate,
+                      ),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
@@ -89,7 +112,19 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                           icon: const Icon(Icons.save_outlined),
                           label: const Text('Guardar notas'),
                         ),
-                      )
+                      ),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: _clearFields,
+                          icon: const Icon(Icons.clear_all_outlined),
+                          label: const Text('Limpiar casillas'),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
+                    
                     ],
                   ),
                 ),
@@ -128,7 +163,11 @@ class _HeaderBadge extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 28,
-            child: Icon(Icons.assessment_outlined, size: 28, color: theme.colorScheme.onPrimaryContainer),
+            child: Icon(
+              Icons.assessment_outlined,
+              size: 28,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -137,12 +176,16 @@ class _HeaderBadge extends StatelessWidget {
               children: [
                 Text(
                   'Promedio actual',
-                  style: theme.textTheme.labelLarge!.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  style: theme.textTheme.labelLarge!.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   avg == null ? '—' : avg!.toStringAsFixed(2),
-                  style: theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w700),
+                  style: theme.textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ],
             ),
@@ -177,9 +220,16 @@ class _CategoryChip extends StatelessWidget {
 
     return Chip(
       label: Text(category),
-      avatar: Icon(Icons.flag_outlined, size: 18, color: theme.colorScheme.onPrimary),
+      avatar: Icon(
+        Icons.flag_outlined,
+        size: 18,
+        color: theme.colorScheme.onPrimary,
+      ),
       backgroundColor: tone().withOpacity(0.1),
-      labelStyle: theme.textTheme.labelLarge!.copyWith(color: tone(), fontWeight: FontWeight.w600),
+      labelStyle: theme.textTheme.labelLarge!.copyWith(
+        color: tone(),
+        fontWeight: FontWeight.w600,
+      ),
       side: BorderSide(color: tone().withOpacity(0.4)),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -192,14 +242,21 @@ class _GradeField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
-  const _GradeField({required this.label, required this.controller, this.validator});
+  const _GradeField({
+    required this.label,
+    required this.controller,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       validator: validator,
-      keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+      keyboardType: const TextInputType.numberWithOptions(
+        decimal: true,
+        signed: false,
+      ),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: label,
