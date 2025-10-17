@@ -44,8 +44,8 @@ class AcademicApp extends StatelessWidget {
           name: 'Ludwin Navarro',
           courses: [
             Course(id: '1', name: 'Programación Móvil II'),
-            Course(id: '2', name: 'Circuitos Lógicos'),
-            Course(id: '3', name: 'Inteligencia Artificial'),
+            Course(id: '2', name: 'Interfaces de IA'),
+            Course(id: '3', name: 'Porgramacion Web II'),
           ],
         ),
       ),

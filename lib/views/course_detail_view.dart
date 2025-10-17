@@ -37,7 +37,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   String? _validate(String? v) {
     if (v == null || v.trim().isEmpty) return 'Requerido';
     final num? n = num.tryParse(v);
-    if (n == null) return 'Número inválido';
+    if (n == null) return 'El Número inválido';
     if (n < 0 || n > 100) return '0 - 100';
     return null;
   }
@@ -76,11 +76,11 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      _GradeField(label: 'Parcial 1', controller: _p1Ctrl, validator: _validate),
+                      _GradeField(label: 'Primer Parcial', controller: _p1Ctrl, validator: _validate),
                       const SizedBox(height: 12),
-                      _GradeField(label: 'Parcial 2', controller: _p2Ctrl, validator: _validate),
+                      _GradeField(label: 'Segundo Parcial', controller: _p2Ctrl, validator: _validate),
                       const SizedBox(height: 12),
-                      _GradeField(label: 'Parcial 3', controller: _p3Ctrl, validator: _validate),
+                      _GradeField(label: 'Tercer Parcial', controller: _p3Ctrl, validator: _validate),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
@@ -136,7 +136,7 @@ class _HeaderBadge extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Promedio actual',
+                  'El promedio actual',
                   style: theme.textTheme.labelLarge!.copyWith(color: theme.colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: 4),

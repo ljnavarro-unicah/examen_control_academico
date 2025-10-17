@@ -141,7 +141,7 @@ class _CourseTile extends StatelessWidget {
         ),
         title: Text(course.name, style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
-          avg == null ? 'Sin promedio' : 'Promedio: ${avg.toStringAsFixed(2)}  ·  ${course.category}',
+          avg == null ? 'No hay promedio' : 'Promedio: ${avg.toStringAsFixed(2)}  ·  ${course.category}',
           style: theme.textTheme.bodySmall,
         ),
         trailing: Icon(Icons.chevron_right_rounded, color: theme.colorScheme.outline),
