@@ -45,7 +45,8 @@ class _HomeViewState extends State<HomeView> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _HeaderCard(name: widget.student.name, overallAvg: avg, category: cat),
+            _HeaderCard(name: widget.student.name, overallAvg: avg, category: cat,photoPath: widget.student.photoPath,),
+            
             const SizedBox(height: 16),
             Text('Mis clases', style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w700)),
             const SizedBox(height: 8),
@@ -61,7 +62,8 @@ class _HeaderCard extends StatelessWidget {
   final String name;
   final double? overallAvg;
   final String category;
-  const _HeaderCard({required this.name, required this.overallAvg, required this.category});
+  final String photoPath;
+  const _HeaderCard({required this.name, required this.overallAvg, required this.category, required this.photoPath,});
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +77,14 @@ class _HeaderCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 36,
-              backgroundImage: null, 
-              child: Text(
-                _initials(name),
-                style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w800),
-              ),
+              backgroundImage: NetworkImage(photoPath),
+               
+              child: photoPath.isEmpty
+                  ? Text(
+                      _initials(name),
+                      style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w800),
+                    )
+                  : null,
             ),
             const SizedBox(width: 16),
             Expanded(

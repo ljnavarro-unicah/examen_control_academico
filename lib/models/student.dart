@@ -2,9 +2,10 @@ import 'course.dart';
 
 class Student {
   final String name;
+  String photoPath; 
   final List<Course> courses;
 
-  Student({required this.name, required this.courses});
+  Student({required this.name, required this.photoPath, required this.courses});
 
   double? get overallAverage {
     final avgs = courses.map((c) => c.average).where((a) => a != null).cast<double>().toList();

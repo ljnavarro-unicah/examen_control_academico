@@ -35,13 +35,14 @@ class AcademicApp extends StatelessWidget {
 
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          fillColor: Color.fromARGB(255, 102, 102, 106),
+          fillColor: Color.fromARGB(255, 163, 163, 165),
         ),
         appBarTheme: const AppBarTheme(centerTitle: true),
       ),
       home: HomeView(
         student: Student(
           name: 'Luis Enrique',
+          photoPath: 'https://i.redd.it/ppq5lbv5o6ad1.png',
           courses: [
             Course(id: '1', name: 'Programación Móvil II'),
             Course(id: '2', name: 'Seminario de Hardware y Electricidad'),
