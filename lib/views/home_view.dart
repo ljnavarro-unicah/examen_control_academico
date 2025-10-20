@@ -17,10 +17,26 @@ class _HomeViewState extends State<HomeView> {
       MaterialPageRoute(builder: (_) => CourseDetailView(course: c)),
     );
     if (updated != null) {
-      setState(() {
-        
-      });
+      setState(() {});
     }
+  }
+
+  void _showCourseCountAlert() {
+    final total = widget.student.courses.length;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('📚 Total de Clases'),
+        content: Text('Llevas $total clases registradas. ¡Sigue así, Mari! 😄'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cerrar'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -37,7 +53,10 @@ class _HomeViewState extends State<HomeView> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [theme.colorScheme.surface, theme.colorScheme.surfaceContainerHighest],
+            colors: [
+              theme.colorScheme.surface,
+              theme.colorScheme.surfaceContainerHighest,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -45,13 +64,29 @@ class _HomeViewState extends State<HomeView> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _HeaderCard(name: widget.student.name, overallAvg: avg, category: cat),
+            _HeaderCard(
+              name: widget.student.name,
+              overallAvg: avg,
+              category: cat,
+            ),
             const SizedBox(height: 16),
-            Text('Mis clases', style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              'Mis clases',
+              style: theme.textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
-            ...widget.student.courses.map((c) => _CourseTile(course: c, onTap: () => _openCourse(c))),
+            ...widget.student.courses.map(
+              (c) => _CourseTile(course: c, onTap: () => _openCourse(c)),
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _showCourseCountAlert,
+        label: const Text('Ver total de clases'),
+        icon: const Icon(Icons.info_outline),
       ),
     );
   }
@@ -61,7 +96,11 @@ class _HeaderCard extends StatelessWidget {
   final String name;
   final double? overallAvg;
   final String category;
-  const _HeaderCard({required this.name, required this.overallAvg, required this.category});
+  const _HeaderCard({
+    required this.name,
+    required this.overallAvg,
+    required this.category,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +114,12 @@ class _HeaderCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 36,
-              backgroundImage: null, 
+              backgroundImage: null,
               child: Text(
                 _initials(name),
-                style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w800),
+                style: theme.textTheme.titleLarge!.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
             const SizedBox(width: 16),
@@ -86,11 +127,20 @@ class _HeaderCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w700)),
+                  Text(
+                    name,
+                    style: theme.textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      Icon(Icons.star_outline, size: 18, color: theme.colorScheme.primary),
+                      Icon(
+                        Icons.star_outline,
+                        size: 18,
+                        color: theme.colorScheme.primary,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         'Promedio general: ${overallAvg == null ? '—' : overallAvg!.toStringAsFixed(2)}',
@@ -99,10 +149,10 @@ class _HeaderCard extends StatelessWidget {
                       const SizedBox(width: 12),
                       _CategoryBadge(category: category),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -110,10 +160,16 @@ class _HeaderCard extends StatelessWidget {
   }
 
   String _initials(String n) {
-    final parts = n.trim().split(RegExp(r'\s+')).where((e) => e.isNotEmpty).toList();
+    final parts = n
+        .trim()
+        .split(RegExp(r'\s+'))
+        .where((e) => e.isNotEmpty)
+        .toList();
     if (parts.isEmpty) return '👤';
-    if (parts.length == 1) return parts.first.characters.take(2).toString().toUpperCase();
-    return (parts.first.characters.first + parts.last.characters.first).toUpperCase();
+    if (parts.length == 1)
+      return parts.first.characters.take(2).toString().toUpperCase();
+    return (parts.first.characters.first + parts.last.characters.first)
+        .toUpperCase();
   }
 }
 
@@ -137,14 +193,27 @@ class _CourseTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         leading: CircleAvatar(
           radius: 22,
-          child: Icon(Icons.menu_book_outlined, color: theme.colorScheme.onPrimaryContainer),
+          child: Icon(
+            Icons.menu_book_outlined,
+            color: theme.colorScheme.onPrimaryContainer,
+          ),
         ),
-        title: Text(course.name, style: theme.textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600)),
+        title: Text(
+          course.name,
+          style: theme.textTheme.titleMedium!.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         subtitle: Text(
-          avg == null ? 'Sin promedio' : 'Promedio: ${avg.toStringAsFixed(2)}  ·  ${course.category}',
+          avg == null
+              ? 'Sin promedio'
+              : 'Promedio: ${avg.toStringAsFixed(2)}  ·  ${course.category}',
           style: theme.textTheme.bodySmall,
         ),
-        trailing: Icon(Icons.chevron_right_rounded, color: theme.colorScheme.outline),
+        trailing: Icon(
+          Icons.chevron_right_rounded,
+          color: theme.colorScheme.outline,
+        ),
       ),
     );
   }
@@ -180,7 +249,10 @@ class _CategoryBadge extends StatelessWidget {
       ),
       child: Text(
         category,
-        style: theme.textTheme.labelMedium!.copyWith(color: tone(), fontWeight: FontWeight.w700),
+        style: theme.textTheme.labelMedium!.copyWith(
+          color: tone(),
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }

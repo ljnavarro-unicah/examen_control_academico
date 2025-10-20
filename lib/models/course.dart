@@ -5,6 +5,7 @@ class Course {
   double? p1;
   double? p2;
   double? p3;
+  double? p4;
 
   Course({
     required this.id,
@@ -12,14 +13,14 @@ class Course {
     this.p1,
     this.p2,
     this.p3,
+    this.p4,
   });
 
-  bool get hasAll =>
-      p1 != null && p2 != null && p3 != null;
+  bool get hasAll => p1 != null && p2 != null && p3 != null && p4 != null;
 
   double? get average {
     if (!hasAll) return null;
-    return ((p1 ?? 0) + (p2 ?? 0) + (p3 ?? 0)) / 3.0;
+    return ((p1 ?? 0) + (p2 ?? 0) + (p3 ?? 0) + (p4 ?? 0)) / 3.0;
   }
 
   String get category {

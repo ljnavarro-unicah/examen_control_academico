@@ -13,18 +13,17 @@ class AcademicApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const seed = Color(0xFF6750A4);
+    const seed = Color.fromARGB(255, 224, 131, 165);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Mi Control Académico',
+      title: 'Mi Control Académico Mari',
       themeMode: ThemeMode.light,
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: seed,
         textTheme: GoogleFonts.poppinsTextTheme(),
 
-        
         cardTheme: const CardThemeData(
           elevation: 1,
           shadowColor: Colors.black12,
@@ -41,11 +40,12 @@ class AcademicApp extends StatelessWidget {
       ),
       home: HomeView(
         student: Student(
-          name: 'Ludwin Navarro',
+          name: 'Mari Jennette Vasquez Sanchez',
           courses: [
-            Course(id: '1', name: 'Programación Móvil II'),
-            Course(id: '2', name: 'Circuitos Lógicos'),
-            Course(id: '3', name: 'Inteligencia Artificial'),
+            Course(id: '1', name: 'Programación Portales web II'),
+            Course(id: '2', name: 'Seminario De Harware y Electricidad'),
+            Course(id: '3', name: 'Programación Móvil II'),
+            Course(id: '4', name: 'Programación De Negocios'),
           ],
         ),
       ),
